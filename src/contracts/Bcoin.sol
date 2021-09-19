@@ -9,25 +9,28 @@ contract Bcoin {
 
 
 event Transfer(
-    address _from,
-    address _to,
+    address  indexed _from,
+    address indexed _to,
     uint _value
 
 );
 
-event Approve (
-    address _receipient,
+event Approval (
+    address indexed _receipient,
     uint value,
-    address _sender
+    address indexed _sender
 );
 
 mapping(address => uint) public balanceOf;
+mapping(address => mapping(address => uint)) public allowance;
+
 
 constructor(){
     balanceOf[msg.sender] = totalSupply;
 }
 
 function transfer(address _to,uint _value) public returns (bool success){
+    require(balanceOf[msg.sender] <= _value);
     balanceOf[msg.sender] -= _value;
     balanceOf[_to] += _value;
     emit Transfer(_from,_to,_value);
@@ -35,10 +38,14 @@ function transfer(address _to,uint _value) public returns (bool success){
 
 }
 
+
 function transferFrom(address _to,address _from, uint _value) public returns(bool success){
-      balanceOf[_from] += _value;
-     balanceOf[_to] -= _value;
-     emit Transfer(_from,_to,_value);
+    require(_value <= balanceOf[msg.sender]);
+    require(_value <= allowance[_from][msg.sender]);
+    balanceOf[_from] += _value;
+    balanceOf[_to] -= _value;
+    allowance[_from][msg.sender] -= _value;
+    emit Transfer(_from,_to,_value);
     return true;
 }
 
