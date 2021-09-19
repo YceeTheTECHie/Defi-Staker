@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-contract Bcoin {
-    string public name = "Bcoin";
+contract Rwd {
+    string public name = "Reward Token";
     string public symbol = "USDT";
     uint public totalSupply = 1000000000000000000000000;
     uint8 public decimals = 18;
