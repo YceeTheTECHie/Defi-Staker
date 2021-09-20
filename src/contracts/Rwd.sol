@@ -33,12 +33,12 @@ function transfer(address _to,uint _value) public returns (bool success){
     require(balanceOf[msg.sender] <= _value);
     balanceOf[msg.sender] -= _value;
     balanceOf[_to] += _value;
-    emit Transfer(_from,_to,_value);
+    emit Transfer(msg.sender,_to,_value);
     return true;
 
 }
 
-function Approval(uint _value, address _spender) public returns (bool success) {
+function approval(uint _value, address _spender) public returns (bool success) {
     allowance[msg.sender][_spender] = _value;
     emit Approval(msg.sender,_value, _spender);
     return true;
