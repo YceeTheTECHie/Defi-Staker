@@ -1,5 +1,5 @@
-const DecentralizedBankBcoin = artifacts.require('Bcoin');
-const Rwd = artifacts.require('Rwd.sol');
+const Bcoin = artifacts.require('Bcoin');
+const Rwd = artifacts.require('Rwd');
 const DecentralizedBank = artifacts.require('DecentralizedBank');
 
 module.exports = async function (deployer,accounts,networks) {
@@ -14,5 +14,5 @@ module.exports = async function (deployer,accounts,networks) {
 
    // transfer all tokens from rwd into bank
    await rwd.transfer(decentralizedBank.address, '1000000000000000000000000');
-   await bcoin.transfer(accounts[1],'1000000000000000000');
+   await bcoin.transfer(accounts[1],'10000000000000000');
 }
