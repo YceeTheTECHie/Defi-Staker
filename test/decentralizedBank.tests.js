@@ -8,7 +8,7 @@ require("chai")
     .use(require('chai-as-promised'))
     .should();
 
-contract(DecentralizedBank, (accounts) => {
+contract(DecentralizedBank, ([owner,customer]) => {
 
     // helper function to help token formatting
     const tokenFormatter = amount => {
@@ -20,7 +20,7 @@ contract(DecentralizedBank, (accounts) => {
         rwd = await Rwd.new();
         decentralizedBank = DecentralizedBank.new(rwd.address, bcoin.address);
         await rwd.transfer(decentralizedBank.address, tokenFormatter(1000000));
-        await bcoin.transfer(accounts[1],tokenFormatter())
+        await bcoin.transfer(customer,tokenFormatter(100), {from : owner})
     })
     describe('Token Deployment', async () => {
         it('name matches', async () => {
